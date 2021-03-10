@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.swing.text.html.Option;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -32,15 +33,17 @@ public class UserRepositoryTest extends TestApplicationTests {
         System.out.println("newUser:"+ newUser);
     }
     @Test
+    @Transactional
     public void read(){
         //read 는 find 와 관련되어있음
         //id type long 에 2가 있다면~~
         //후에 매개변수추가로 검색 방법 변경 가
-        Optional<User> user =ur.findById(2L);
+        Optional<User> user =ur.findById(7L);
 
         user.ifPresent(selectUser ->{
-            System.out.println("user : " +selectUser);
-            System.out.println("email : "+selectUser.getEmail());
+            selectUser.getOrderDetailList().stream().forEach(detail ->{
+                System.out.println(detail.getItem());
+            });
         });
     }
     @Test

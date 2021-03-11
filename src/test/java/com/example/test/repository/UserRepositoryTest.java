@@ -38,7 +38,7 @@ public class UserRepositoryTest extends TestApplicationTests {
         //read 는 find 와 관련되어있음
         //id type long 에 2가 있다면~~
         //후에 매개변수추가로 검색 방법 변경 가
-        Optional<User> user =ur.findById(7L);
+        Optional<User> user =ur.findByEmail("test@naver.com");
 
         user.ifPresent(selectUser ->{
             selectUser.getOrderDetailList().stream().forEach(detail ->{

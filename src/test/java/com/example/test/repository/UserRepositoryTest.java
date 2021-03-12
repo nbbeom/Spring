@@ -4,6 +4,7 @@ package com.example.test.repository;
 import com.example.test.TestApplicationTests;
 import com.example.test.model.entity.User;
 import com.example.test.model.entity.User;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -21,30 +23,32 @@ public class UserRepositoryTest extends TestApplicationTests {
 
     @Test
     public void create(){
-        //insert into () values() 를 자동으로 매핑
-        User user = new User();
-        user.setAccount("testAccount2");
-        user.setEmail("test@naver.com");
-        user.setPhoneNumber("010-1111-1111");
-        user.setCreatedAt(LocalDateTime.now());
-        user.setCreatedBy("admin");
+        String account  ="Test01";
+        String password = "Test01";
+        String status = "REGISTRED";
+        String email = "Test@kpu.ac.kr";
+        String phoneNumber = "010-0000-000";
+        LocalDateTime registeredAt  =LocalDateTime.now();
+        LocalDateTime crreateAt = LocalDateTime.now();
+        String createdBy = "AdminServer";
 
-        User newUser=ur.save(user);
-        System.out.println("newUser:"+ newUser);
+        User user = new User();
+        user.setAccount(account);
+        user.setPassword(password);
+        user.setStatus(status);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setRegisteredAt(registeredAt);
+        user.setCreatedAt(crreateAt);
+        user.setCreatedBy(createdBy);
+
+        User newUser = ur.save(user);
+        Assert.assertNotNull(newUser);
     }
     @Test
     @Transactional
     public void read(){
-        //read 는 find 와 관련되어있음
-        //id type long 에 2가 있다면~~
-        //후에 매개변수추가로 검색 방법 변경 가
-        Optional<User> user =ur.findByEmail("test@naver.com");
 
-        user.ifPresent(selectUser ->{
-            selectUser.getOrderDetailList().stream().forEach(detail ->{
-                System.out.println(detail.getItem());
-            });
-        });
     }
     @Test
     public void update(){

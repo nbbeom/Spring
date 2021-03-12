@@ -17,7 +17,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String account;
+    private String password;
+    private String status;
     private String email;
+    private LocalDateTime registeredAt;
+    private LocalDateTime unregisteredAt;
 
     private String phoneNumber;
     private LocalDateTime createdAt;
@@ -25,8 +29,6 @@ public class User {
     private LocalDateTime updatedAt;
     private String updatedBy;
 
-    // 1:N
-    @OneToMany(fetch = FetchType.LAZY, mappedBy ="user")
-    private List<OrderDetail> orderDetailList;
+
 
 }
